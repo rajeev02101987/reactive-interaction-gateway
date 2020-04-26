@@ -95,7 +95,9 @@ config :logger, :console,
   format: "\n$time [$level] $levelpad$message\n$metadata\n",
   metadata: metadata |> Enum.uniq()
 
-config :rig, Rig.Application, log_level: {:system, :atom, "LOG_LEVEL", :debug}
+config :rig, Rig.Application,
+  log_level: {:system, :atom, "LOG_LEVEL", :debug},
+  log_type: {:system, :atom, "LOG_TYPE", :erlang}
 
 # --------------------------------------
 # Session and Authorization

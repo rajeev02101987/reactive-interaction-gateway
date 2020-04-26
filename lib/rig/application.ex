@@ -2,16 +2,22 @@ defmodule Rig.Application do
   @moduledoc false
 
   use Application
-  use Rig.Config, [:log_level]
+  use Rig.Config, [:log_level, :log_type]
 
   alias RigOutboundGateway.Kinesis
   alias RigOutboundGateway.KinesisFirehose
+
+  alias LoggerJSON.Formatters.BasicLogger
 
   def start(_type, _args) do
     alias Supervisor.Spec
 
     # Override application logging with environment variable
     Logger.configure([{:level, config().log_level}])
+
+    if config().log_type == :json do
+      Logger.add_backend(LoggerJSON)
+    end
 
     Rig.Discovery.start()
 

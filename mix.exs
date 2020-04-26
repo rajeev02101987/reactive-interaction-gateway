@@ -53,7 +53,7 @@ defmodule RIG.MixProject do
   def application do
     [
       mod: {Rig.Application, []},
-      extra_applications: [:logger, :runtime_tools, :prometheus_ex, :prometheus_plugs],
+      extra_applications: [:logger, :runtime_tools, :prometheus_ex, :prometheus_plugs, :jason, :logger_json],
       included_applications: [:peerage]
     ]
   end
@@ -155,7 +155,9 @@ defmodule RIG.MixProject do
       {:socket, "~> 0.3", only: :test},
       # Prometheus metrics
       {:prometheus_ex, "~> 3.0"},
-      {:prometheus_plugs, "~> 1.1"}
+      {:prometheus_plugs, "~> 1.1"},
+      # JSON Log backend
+      {:logger_json, "~> 4.0"}
     ]
   end
 
