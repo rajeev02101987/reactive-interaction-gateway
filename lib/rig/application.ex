@@ -15,8 +15,17 @@ defmodule Rig.Application do
     # Override application logging with environment variable
     Logger.configure([{:level, config().log_level}])
 
-    if config().log_type == :json do
-      Logger.add_backend(LoggerJSON)
+    case config().log_type do
+      :json ->
+        Logger.add_backend(LoggerJSON)
+      :gcl ->
+        Logger.add_backend(LoggerJSON)
+        Logger.configure_backend(LoggerJSON, formatter: LoggerJSON.Formatters.GoogleCloudLogger)
+      _ ->
+        # TODO: Fix format; context: config.exs:94
+        # Or can I leave it like that? The only difference seems to
+        # be that the level and the module are switched
+        Logger.add_backend(:console)
     end
 
     Rig.Discovery.start()
