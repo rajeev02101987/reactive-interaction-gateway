@@ -53,7 +53,7 @@ defmodule RIG.MixProject do
   def application do
     [
       mod: {Rig.Application, []},
-      extra_applications: [:runtime_tools, :prometheus_ex, :prometheus_plugs, :jason, :logger_json],
+      extra_applications: [:runtime_tools, :prometheus_ex, :prometheus_plugs],
       included_applications: [:peerage]
     ]
   end

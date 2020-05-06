@@ -18,9 +18,10 @@ defmodule Rig.Application do
     case config().log_type do
       :json ->
         Logger.add_backend(LoggerJSON)
+        Logger.configure_backend(LoggerJSON, formatter: LoggerJSON.Formatters.BasicLogger, metadata: :all)
       :gcl ->
         Logger.add_backend(LoggerJSON)
-        Logger.configure_backend(LoggerJSON, formatter: LoggerJSON.Formatters.GoogleCloudLogger)
+        Logger.configure_backend(LoggerJSON, formatter: LoggerJSON.Formatters.GoogleCloudLogger, metadata: :all)
       _ ->
         # TODO: Fix format; context: config.exs:94
         # Or can I leave it like that? The only difference seems to
