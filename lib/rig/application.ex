@@ -23,9 +23,6 @@ defmodule Rig.Application do
         Logger.add_backend(LoggerJSON)
         Logger.configure_backend(LoggerJSON, formatter: LoggerJSON.Formatters.GoogleCloudLogger, metadata: :all)
       _ ->
-        # TODO: Fix format; context: config.exs:94
-        # Or can I leave it like that? The only difference seems to
-        # be that the level and the module are switched
         Logger.add_backend(:console)
     end
 
