@@ -18,10 +18,16 @@ defmodule Rig.Application do
     case config().log_type do
       :json ->
         Logger.add_backend(LoggerJSON)
-        Logger.configure_backend(LoggerJSON, formatter: LoggerJSON.Formatters.BasicLogger, metadata: :all)
+        Logger.configure_backend(
+          LoggerJSON,
+          formatter: LoggerJSON.Formatters.BasicLogger,
+          metadata: :all)
       :gcl ->
         Logger.add_backend(LoggerJSON)
-        Logger.configure_backend(LoggerJSON, formatter: LoggerJSON.Formatters.GoogleCloudLogger, metadata: :all)
+        Logger.configure_backend(
+          LoggerJSON,
+          formatter: LoggerJSON.Formatters.GoogleCloudLogger,
+          metadata: :all)
       _ ->
         Logger.add_backend(:console)
     end
