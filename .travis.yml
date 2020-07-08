@@ -16,7 +16,7 @@ stages:
 jobs:
   include:
     - stage: unittest
-      arch: arm64
+      arch: amd64
       <<: *elixir-env
       env:
         - MIX_ENV=test
