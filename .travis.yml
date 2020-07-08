@@ -1,15 +1,12 @@
-arch:
-  - arm64
-  - amd64
 stages:
   - unittest
   - exampletest
   - name: dockerbuild
-    if: branch = master
+    if: branch = arm64
   - name: website
-    if: branch = master AND type != pull_request
+    if: branch = arm64 AND type != pull_request
   - name: sourcedocs
-    if: branch = master AND type != pull_request
+    if: branch = arm64 AND type != pull_request
 
 .elixir-env: &elixir-env
   language: elixir
@@ -19,6 +16,7 @@ stages:
 jobs:
   include:
     - stage: unittest
+      arch: arm64
       <<: *elixir-env
       env:
         - MIX_ENV=test
@@ -26,6 +24,7 @@ jobs:
         - mix test
         - mix credo --ignore-checks Design
     - stage: exampletest
+      arch: arm64
       language: node_js
       node_js:
         - "10"
@@ -42,12 +41,14 @@ jobs:
         - npm ci
         - npm run cypress:run:all
     - stage: dockerbuild
+      arch: arm64
       language: minimal
       services:
         - docker
       script:
         - docker build .
     - stage: website
+      arch: arm64
       language: node_js
       node_js:
         - "8"
@@ -59,6 +60,7 @@ jobs:
         - echo "machine github.com login ${GH_NAME} password ${GH_TOKEN}" > ~/.netrc
         - cd website && yarn install && GIT_USER="${GH_NAME}" yarn run publish-gh-pages
     - stage: sourcedocs
+      arch: arm64
       <<: *elixir-env
       script:
         - git config --global user.name "${GH_NAME}"
